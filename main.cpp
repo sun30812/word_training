@@ -1,4 +1,4 @@
-// 영어단어를 학습시키는 프로그램입니다.
+// 단어 시험기능을 통해 영어단어를 학습시키는 프로그램입니다.
 #include <iostream>
 #include "dictionary.h"
 using namespace std;
@@ -20,6 +20,7 @@ int main() {
         switch (answer) {
             case 1: {
                 string input, result;
+                dictionary -= "test";
                 cout << "단어를 검색합니다. 검색을 원하시는 단어를 입력하세요" << endl;
                 cout << "입력: ";
                 cin >> input;

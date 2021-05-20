@@ -8,18 +8,19 @@ Dictionary::Dictionary(int data_length) {
     means = new string[data_length]();
 }
 
-
-
 Dictionary::~Dictionary() {
     delete[] words;
     delete[] means;
 }
 
 EnglishDictionary::EnglishDictionary(int data_length) : Dictionary(data_length) {
+    // TODO: 데이터를 파일에서(fstream) 읽어오는 로직 추가 필요
     words[0] = "test";
     means[0] = "시험";
     words[1] = "pizza";
     means[1] = "피자";
+    means[4] = "xxxaaaaa";
+    words[4] = "x";
 }
 
 // key 매개변수에 해당하는 단어 사전에서 찾아서 있으면 result변수에 뜻을 반환하고
@@ -44,24 +45,49 @@ int EnglishDictionary::search(const string& key) {
     }
     return -1;
 }
+// word매개변수에 해당하는 값과 그 뜻을 meaning매개변수로 단어장에 추가합니다.
+// 이미 등록되어 있던 경우 데이터가 추가되거나 변경되지 않습니다.
+void EnglishDictionary::add(const string &word, const string &meaning) {
+    if (search(word) != -1) {
+        data_length++;
+        string* new_words = new string[data_length]();
+        for (int i = 0; i < data_length - 1; i++) {
+            new_words[i] = words[i];
+        }
+        new_words[data_length - 1] = word;
+        string* new_means = new string[data_length]();
+        for (int i = 0; i < data_length - 1; i++) {
+            new_words[i] = words[i];
+        }
+        new_means[data_length - 1] = meaning;
+        words = new_words;
+        means = new_means;
+    } else {
+        cout << "이미 등록된 단어입니다." << endl;
+    }
+}
 
-// 단어를 제외시킬 떄 사용합니다. 아직 완성되지 않았습니다.
+
+// 단어장에서 특정 단어를 지우도록 해줍니다.
+// 사용법: english_dictionary -= "지울 단어"
 void EnglishDictionary::operator-=(const string& word) {
     int index = search(word);
     if (index >= 0) {
-        this->words[index] = "";
-        this->means[index] = "";
+        this->words[index] = "/deleted";
+        this->means[index] = "/deleted";
         data_length--;
         string* new_words = new string[data_length]();
         for (int i = 0, j = 0; i < data_length; i++, j++) {
-            if (words[j] == "")
+            if (words[i] == "/deleted") {
                 j++;
+            }
             new_words[i] = words[j];
         }
         string* new_means = new string[data_length]();
         for (int i = 0, j = 0; i < data_length; i++, j++) {
-            if (means[j] == "")
+            if (means[i] == "/deleted") {
                 j++;
+            }
             new_means[i] = means[j];
         }
         words = new_words;
@@ -69,3 +95,4 @@ void EnglishDictionary::operator-=(const string& word) {
     }
 
 }
+
