@@ -4,8 +4,8 @@ using namespace std;
 
 Dictionary::Dictionary(int data_length) {
     this->data_length = data_length;
-    words = new string[data_length]();
-    means = new string[data_length]();
+    words = new string[data_length];
+    means = new string[data_length];
 }
 
 Dictionary::~Dictionary() {
@@ -48,7 +48,7 @@ int EnglishDictionary::search(const string& key) {
 // word매개변수에 해당하는 값과 그 뜻을 meaning매개변수로 단어장에 추가합니다.
 // 이미 등록되어 있던 경우 데이터가 추가되거나 변경되지 않습니다.
 void EnglishDictionary::add(const string &word, const string &meaning) {
-    if (search(word) != -1) {
+    if (search(word) == -1) {
         data_length++;
         string* new_words = new string[data_length]();
         for (int i = 0; i < data_length - 1; i++) {
@@ -62,6 +62,7 @@ void EnglishDictionary::add(const string &word, const string &meaning) {
         new_means[data_length - 1] = meaning;
         words = new_words;
         means = new_means;
+        cout << "단어가 정상적으로 추가되었습니다." << endl;
     } else {
         cout << "이미 등록된 단어입니다." << endl;
     }

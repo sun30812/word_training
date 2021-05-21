@@ -3,6 +3,8 @@
 #include "dictionary.h"
 using namespace std;
 
+// 단어 관리 메뉴
+void wordManagement(EnglishDictionary& dictionary);
 
 int main() {
     cout << "==========" << endl;
@@ -25,14 +27,14 @@ int main() {
                 cout << "입력: ";
                 cin >> input;
                 if (dictionary.search(input, result)) {
-                    cout << "검색하신 단어의 뜻은 " << result << " 입니다.\n" << endl;
+                    cout << "\n\n검색하신 단어의 뜻은 " << result << " 입니다.\n" << endl;
                 } else {
-                    cout << "검색하신 단어를 찾을 수 없습니다.\n" << endl;
+                    cout << "\n\n검색하신 단어를 찾을 수 없습니다.\n" << endl;
                 }
                 break;
             }
             case 2:
-                // TODO: 단어 관리 메뉴 추가
+                wordManagement(dictionary);
                 break;
             case 3:
                 // TODO: 단어 시험 메뉴 추가
@@ -43,7 +45,42 @@ int main() {
                 break;
             default:
                 cout << "잘못 입력하셨습니다. 메뉴를 다시 확인해주세요\n\n" << endl;
+                break;
         }
     }
     return 0;
+}
+
+void wordManagement(EnglishDictionary& dictionary) {
+    int answer = 0;
+    bool isExit = false;
+    cout << "해당 메뉴에서는 단어를 추가하거나 삭제할 수 있습니다." << endl;
+    while (!isExit) {
+        cout << "1. 단어 추가" << endl;
+        cout << "2. 단어 삭제" << endl;
+        cout << "3. 뒤로 돌아가기" << endl;
+        cout << "\n메뉴 번호 입력: ";
+        cin >> answer;
+        switch (answer) {
+            case 1: {
+                string word, meaning;
+                cout << "추가할 단어를 입력해주세요: ";
+                cin >> word;
+                cout << "뜻을 입력해주세요: ";
+                cin >> meaning;
+                dictionary.add(word, meaning);
+                break;
+            }
+            case 2:
+                // TODO: 단어 삭제
+                break;
+            case 3:
+                isExit = true;
+                break;
+            default:
+                cout << "잘못 입력하셨습니다. 메뉴를 다시 확인해주세요\n\n" << endl;
+                break;
+        }
+
+    }
 }
