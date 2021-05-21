@@ -11,15 +11,18 @@ protected:
     string* means;
     Dictionary(int data_length);
     ~Dictionary();
+
+public:
+    virtual bool search(const string& key, string& result);
+    virtual int search(const string& key);
+
 };
 
 // 영어 단어장 기능을 담당하는 클래스입니다. 각 함수에 대한 설명은
 // cpp소스파일을 봐주세요
-class EnglishDictionary : Dictionary {
+class EnglishDictionary : public Dictionary {
 public:
     EnglishDictionary(int data_length);
-    bool search(const string& key, string& result);
-    int search(const string& key);
     void add(const string& word, const string& meaning);
     bool modify(const string& key);
     void operator-=(const string& word);

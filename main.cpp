@@ -12,17 +12,17 @@ int main() {
     cout << "==========" << endl;
     EnglishDictionary dictionary(5);
     int answer = 0;
-    while (true) {
+    bool isExit = false;
+    while (!isExit) {
         cout << "1. 단어 검색" << endl;
         cout << "2. 단어 관리" << endl;
         cout << "3. 단어 시험보기" << endl;
         cout << "4. 프로그램 종료" << endl;
-        cout << "\n메뉴 번호 입력: ";
+        cout << "\n메뉴 번호 입력(번호만 입력하세요): ";
         cin >> answer;
         switch (answer) {
             case 1: {
                 string input, result;
-                dictionary -= "test";
                 cout << "단어를 검색합니다. 검색을 원하시는 단어를 입력하세요" << endl;
                 cout << "입력: ";
                 cin >> input;
@@ -41,7 +41,7 @@ int main() {
                 break;
             case 4:
                 cout << "프로그램을 종료합니다." << endl;
-                exit(0);
+                isExit = true;
                 break;
             default:
                 cout << "잘못 입력하셨습니다. 메뉴를 다시 확인해주세요\n\n" << endl;
@@ -71,8 +71,12 @@ void wordManagement(EnglishDictionary& dictionary) {
                 dictionary.add(word, meaning);
                 break;
             }
-            case 2:
-                // TODO: 단어 삭제
+            case 2: {
+                string word;
+                cout << "삭제할 단어를 입력해주세요: ";
+                cin >> word;
+                dictionary -= word;
+            }
                 break;
             case 3:
                 isExit = true;
