@@ -32,6 +32,22 @@ int Dictionary::search(const string& key) {
     return -1;
 }
 
+// 단어장에 존재하는 모든 리스트를 출력합니다.
+void Dictionary::printAll()
+{
+    cout << "\n" << endl;
+    cout << "\n" << endl;
+    for (int i = 0; i < data_length; i++)
+    {
+        if (words[i] != "") {
+            cout << "[" << i + 1 << "]" << words[i] << ":" << means[i] << endl;
+        }
+        else {
+            cout << "[" << i + 1 << "]" << " 비어있음" << endl;
+        }
+    }
+}
+
 Dictionary::~Dictionary() {
     delete[] words;
     delete[] means;
@@ -101,5 +117,10 @@ void EnglishDictionary::operator-=(const string& word) {
         cout << "해당 단어는 존재하지 않습니다." << endl;
     }
 
+}
+
+int EnglishDictionary::getLength()
+{
+    return data_length;
 }
 

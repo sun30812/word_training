@@ -1,4 +1,4 @@
-﻿// 단어 시험기능을 통해 영어단어를 학습시키는 프로그램입니다.
+﻿// 단어를 검색할 수 있는 단어장 프로그램입니다.
 #include <iostream>
 #include "dictionary.h"
 using namespace std;
@@ -8,7 +8,7 @@ void wordManagement(EnglishDictionary& dictionary);
 
 int main() {
     cout << "==========" << endl;
-    cout << "영단어 학습기" << endl;
+    cout << "영어 단어장" << endl;
     cout << "==========" << endl;
     EnglishDictionary dictionary(5);
     int answer = 0;
@@ -16,7 +16,7 @@ int main() {
     while (!isExit) {
         cout << "1. 단어 검색" << endl;
         cout << "2. 단어 관리" << endl;
-        cout << "3. 단어 시험보기" << endl;
+        cout << "3. 단어 전체 목록보기" << endl;
         cout << "4. 프로그램 종료" << endl;
         cout << "\n메뉴 번호 입력(번호만 입력하세요): ";
         cin >> answer;
@@ -36,8 +36,8 @@ int main() {
             case 2:
                 wordManagement(dictionary);
                 break;
-            case 3:
-                // TODO: 단어 시험 메뉴 추가
+            case 3: 
+                dictionary.printAll();
                 break;
             case 4:
                 cout << "프로그램을 종료합니다." << endl;
