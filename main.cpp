@@ -1,5 +1,6 @@
 ﻿// 단어를 검색할 수 있는 단어장 프로그램입니다.
 #include <iostream>
+#include <string>
 #include "dictionary.h"
 using namespace std;
 
@@ -25,7 +26,8 @@ int main() {
                 string input, result;
                 cout << "단어를 검색합니다. 검색을 원하시는 단어를 입력하세요" << endl;
                 cout << "입력: ";
-                cin >> input;
+                cin.ignore();
+                getline(cin, input);
                 if (dictionary.search(input, result)) {
                     cout << "\n\n검색하신 단어의 뜻은 " << result << " 입니다.\n" << endl;
                 } else {
@@ -59,22 +61,24 @@ void wordManagement(EnglishDictionary& dictionary) {
         cout << "1. 단어 추가" << endl;
         cout << "2. 단어 삭제" << endl;
         cout << "3. 뒤로 돌아가기" << endl;
-        cout << "\n메뉴 번호 입력: ";
+        cout << "\n메뉴 번호 입력(번호만 입력하세요): ";
         cin >> answer;
         switch (answer) {
             case 1: {
                 string word, meaning;
                 cout << "추가할 단어를 입력해주세요: ";
-                cin >> word;
+                cin.ignore();
+                getline(cin, word);
                 cout << "뜻을 입력해주세요: ";
-                cin >> meaning;
+                getline(cin, meaning);
                 dictionary.add(word, meaning);
                 break;
             }
             case 2: {
                 string word;
                 cout << "삭제할 단어를 입력해주세요: ";
-                cin >> word;
+                cin.ignore();
+                getline(cin, word);
                 dictionary -= word;
             }
                 break;

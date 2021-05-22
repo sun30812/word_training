@@ -36,7 +36,6 @@ int Dictionary::search(const string& key) {
 void Dictionary::printAll()
 {
     cout << "\n" << endl;
-    cout << "\n" << endl;
     for (int i = 0; i < data_length; i++)
     {
         if (words[i] != "") {
@@ -46,6 +45,7 @@ void Dictionary::printAll()
             cout << "[" << i + 1 << "]" << " 비어있음" << endl;
         }
     }
+    cout << "\n" << endl;
 }
 
 Dictionary::~Dictionary() {
