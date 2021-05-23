@@ -8,12 +8,12 @@ Dictionary::Dictionary(int data_length) {
     means = new string[data_length];
 }
 
-// key 매개변수에 해당하는 단어 사전에서 찾아서 있으면 result변수에 뜻을 반환하고
+// word 매개변수에 해당하는 단어 사전에서 찾아서 있으면 result변수에 뜻을 반환하고
 // 함수 자체는 true를 반환합니다. 사전에 없는 단어이면 false를 반환하고 result변수에
 // 아무 작업도 하지 않습니다.
-bool Dictionary::search(const string& key, string& result) {
+bool Dictionary::search(const string& word, string& result) {
     for (int i = 0; i < data_length; i++) {
-        if (words[i] == key) {
+        if (words[i] == word) {
             result = means[i];
             return true;
         }
@@ -21,11 +21,11 @@ bool Dictionary::search(const string& key, string& result) {
     return false;
 }
 
-// key 매개변수에 해당하는 단어 사전에서 찾아서 있으면 그 위치를 반환하고,
+// word 매개변수에 해당하는 단어 사전에서 찾아서 있으면 그 위치를 반환하고,
 // 없으면 -1을 반환합니다.
-int Dictionary::search(const string& key) {
+int Dictionary::search(const string& word) {
     for (int i = 0; i < data_length; i++) {
-        if (words[i] == key) {
+        if (words[i] == word) {
             return i;
         }
     }
@@ -122,5 +122,14 @@ void EnglishDictionary::operator-=(const string& word) {
 int EnglishDictionary::getLength()
 {
     return data_length;
+}
+
+bool EnglishDictionary::modify(const string &word, const string& new_word) {
+    if (search(word) == -1) {
+        return false;
+    } else {
+        words[search((word))] = new_word;
+    }
+    return true;
 }
 

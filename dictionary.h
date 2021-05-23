@@ -13,8 +13,8 @@ protected:
     ~Dictionary();
 
 public:
-    virtual bool search(const string& key, string& result);
-    virtual int search(const string& key);
+    virtual bool search(const string& word, string& result);
+    virtual int search(const string& word);
     virtual void printAll();
 };
 
@@ -24,7 +24,7 @@ class EnglishDictionary : public Dictionary {
 public:
     EnglishDictionary(int data_length);
     void add(const string& word, const string& meaning);
-    bool modify(const string& key);
+    bool modify(const string &word, const string& new_word);
     void operator-=(const string& word);
     int getLength();
 
