@@ -8,8 +8,8 @@ Dictionary::Dictionary(int data_length) {
     means = new string[data_length];
 }
 
-// word 매개변수에 해당하는 단어 사전에서 찾아서 있으면 result변수에 뜻을 반환하고
-// 함수 자체는 true를 반환합니다. 사전에 없는 단어이면 false를 반환하고 result변수에
+// word 매개변수에 해당하는 단어가 사전에 있으면 result변수에 뜻을 반환하고
+// true를 반환합니다. 사전에 없는 단어이면 false를 반환하고
 // 아무 작업도 하지 않습니다.
 bool Dictionary::search(const string& word, string& result) {
     for (int i = 0; i < data_length; i++) {
@@ -22,7 +22,7 @@ bool Dictionary::search(const string& word, string& result) {
 }
 
 // word 매개변수에 해당하는 단어 사전에서 찾아서 있으면 그 위치를 반환하고,
-// 없으면 -1을 반환합니다.
+// 해당 단어가존재하지 않으면 -1을 반환합니다.
 int Dictionary::search(const string& word) {
     for (int i = 0; i < data_length; i++) {
         if (words[i] == word) {
@@ -42,7 +42,7 @@ void Dictionary::printAll()
             cout << "[" << i + 1 << "]" << words[i] << ":" << means[i] << endl;
         }
         else {
-            cout << "[" << i + 1 << "]" << " 비어있음" << endl;
+            cout << "[" << i + 1 << "]" << "비어있음" << endl;
         }
     }
     cout << "\n" << endl;
@@ -64,8 +64,8 @@ EnglishDictionary::EnglishDictionary(int data_length) : Dictionary(data_length) 
 }
 
 // word매개변수에 해당하는 값과 그 뜻을 meaning매개변수로 단어장에 추가합니다.
-// 이미 등록되어 있던 경우 데이터가 추가되거나 변경되지 않습니다.
-void EnglishDictionary::add(const string &word, const string &meaning) {
+// 해단 단어가 이미 등록되어 있던 경우 데이터가 추가되거나 변경되지 않으며 false를 반환합니다.
+bool EnglishDictionary::add(const string &word, const string &meaning) {
     if (search(word) == -1) {
         data_length++;
         string* new_words = new string[data_length]();
@@ -80,17 +80,17 @@ void EnglishDictionary::add(const string &word, const string &meaning) {
         new_means[data_length - 1] = meaning;
         words = new_words;
         means = new_means;
-        cout << "단어가 정상적으로 추가되었습니다." << endl;
+        return true;
     } else {
-        cout << "이미 등록된 단어입니다." << endl;
+        return false;
     }
 }
 
 
 // 단어장에서 특정 단어를 지우도록 해줍니다.
-// 존재하지 않는 경우 메세지를 띄우고 아무런 작업도 수행하지 않습니다.
+// 해당 단어가 존재하지 않는 경우 false를 반환하고 아무런 작업도 수행하지 않습니다.
 // 사용법: english_dictionary -= "지울 단어"
-void EnglishDictionary::operator-=(const string& word) {
+bool EnglishDictionary::operator-=(const string& word) {
     int index = search(word);
     if (index >= 0) {
         this->words[index] = "/deleted";
@@ -112,23 +112,20 @@ void EnglishDictionary::operator-=(const string& word) {
         }
         words = new_words;
         means = new_means;
-        cout << "단어가 정상적으로 지워졌습니다." << endl;
+        return true;
     } else {
-        cout << "해당 단어는 존재하지 않습니다." << endl;
+        return false;
     }
 
 }
-
-int EnglishDictionary::getLength()
-{
-    return data_length;
-}
-
-bool EnglishDictionary::modify(const string &word, const string& new_word) {
+// 단어장에서 특정 단어의 뜻을 변경합니다.
+// 해당 단어가 존재하지 않는 경우 false를 반환하고 아무런 작업도 수행하지 않습니다.
+bool EnglishDictionary::modify(const string &word, const string& new_meaning) {
     if (search(word) == -1) {
         return false;
     } else {
-        words[search((word))] = new_word;
+        this->operator-=(word);
+        this->add(word, new_meaning);
     }
     return true;
 }

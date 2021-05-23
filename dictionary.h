@@ -23,10 +23,9 @@ public:
 class EnglishDictionary : public Dictionary {
 public:
     EnglishDictionary(int data_length);
-    void add(const string& word, const string& meaning);
-    bool modify(const string &word, const string& new_word);
-    void operator-=(const string& word);
-    int getLength();
+    bool add(const string& word, const string& meaning);
+    bool modify(const string &word, const string& new_meaning);
+    bool operator-=(const string& word);
 
 };
 #endif //FINAL_PROJECT_DICTIONARY_H

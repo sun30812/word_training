@@ -60,7 +60,8 @@ void wordManagement(EnglishDictionary& dictionary) {
     while (!isExit) {
         cout << "1. 단어 추가" << endl;
         cout << "2. 단어 삭제" << endl;
-        cout << "3. 뒤로 돌아가기" << endl;
+        cout << "3. 단어 수정" << endl;
+        cout << "4. 뒤로 돌아가기" << endl;
         cout << "\n메뉴 번호 입력(번호만 입력하세요): ";
         cin >> answer;
         switch (answer) {
@@ -71,7 +72,12 @@ void wordManagement(EnglishDictionary& dictionary) {
                 getline(cin, word);
                 cout << "뜻을 입력해주세요: ";
                 getline(cin, meaning);
-                dictionary.add(word, meaning);
+                if (dictionary.add(word, meaning)) {
+                    cout << "단어가 정상적으로 추가되었습니다." << endl;
+                } else {
+                    cout << "이미 등록된 단어입니다." << endl;
+                    cout << "새로운 단어를 추가하시려면 단어 추가 메뉴에서 진행해주세요." << endl;
+                }
                 break;
             }
             case 2: {
@@ -79,12 +85,32 @@ void wordManagement(EnglishDictionary& dictionary) {
                 cout << "삭제할 단어를 입력해주세요: ";
                 cin.ignore();
                 getline(cin, word);
-                dictionary -= word;
+                if (dictionary -= word) {
+                    cout << "단어가 정상적으로 지워졌습니다." << endl;
+                } else {
+                    cout << "해당 단어는 존재하지 않습니다." << endl;
+                }
             }
                 break;
-            case 3:
+            case 3: {
+                string word, meaning;
+                cout << "뜻을 수정할 단어를 입력해주세요: ";
+                cin.ignore();
+                getline(cin, word);
+                cout << "해당 단어의 새로운 뜻을 입력해주세요: ";
+                getline(cin, meaning);
+                if (dictionary.modify(word, meaning)) {
+                    cout << "정상 수정 되었습니다." << endl;
+                } else {
+                    cout << "입력하신 단어는 존재하지 않기 때문에 아무 일도 일어나지 않았습니다." << endl;
+                    cout << "새로운 단어를 추가하시려면 단어 추가 메뉴에서 진행해주세요." << endl;
+                }
+            }
+                break;
+            case 4:
                 isExit = true;
                 break;
+
             default:
                 cout << "잘못 입력하셨습니다. 메뉴를 다시 확인해주세요\n\n" << endl;
                 break;
