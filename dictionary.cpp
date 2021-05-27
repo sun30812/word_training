@@ -22,17 +22,22 @@ bool Dictionary::search(const string& word, string& result) {
 }
 
 // word 매개변수에 해당하는 단어 사전에서 찾아서 있으면 그 위치를 반환하고,
-// 해당 단어가존재하지 않으면 -1을 반환합니다.
+// 해당 단어가 존재하지 않으면 -1을 반환합니다.
 int Dictionary::search(const string& word) {
-    for (int i = 0; i < data_length; i++) {
-        if (words[i] == word) {
-            return i;
+    if (data_length > 0) {
+        for (int i = 0; i < data_length; i++) {
+            if (words[i] == word) {
+                return i;
+            }
         }
     }
     return -1;
 }
 
-// 단어장에 존재하는 모든 리스트를 출력합니다.
+// 단어장에 존재하는 모든 리스트를 출력합니다. 등록된 단어가 없는 경우 사전에 등록된 단어가
+// 없다는 메세지가 출력됩니다.
+// 단, 비어있는 단어를 추가한 경우(영어사전 클래스 생성 시 배열 크기만 지정한 경우)
+// 해당 단어자리에 비어있음이 표시됩니다.
 void Dictionary::printAll()
 {
     cout << "\n" << endl;
@@ -56,10 +61,19 @@ Dictionary::~Dictionary() {
     delete[] words;
     delete[] means;
 }
-// 아무 매개변수도 주지 않은 경우 빈 사전이 생성됩니다. 하지만 걱정하지마세요
-// 프로그램 내에 있는 메뉴를 통해 단어를 새로 등록할 수 있습니다. 매개변수로
-// 숫자만 넣으면 빈 단어가 추가된 상태로 있게됩니다. 숫자만 넣는 경우 개발용으로 사용하라 만든겁니다.
+// 아무 매개변수도 주지 않은 경우 빈 사전이 생성됩니다. 미리 등록하고 싶은 단어가 없으면
+// 매개변수를 아무것도 않넣으면 됩니다.
+// 빈 사전이여도 add함수를 통해 단어를 새로 등록할 수 있습니다.(add함수 사용 시 배열 크기 알아서 늘어남)
+// 매개변수 설명: data_length = 사전을 위한 배열 생성에 요구되는 원소개수(단어가 몇개인가)
+// 주의사항: data_length만 따로 지정할 수 있는 이유는 나중에 개발목적으로 테스트 할 경우
+// 를 위한 것이며 일반적인 사용의 경우에는 권장하지 않습니다.
 EnglishDictionary::EnglishDictionary(int data_length) : Dictionary(data_length) {}
+// 주의사항: words와 means를 통해 사전에 단어를 미리 추가하려면 data_length를 반드시 명시해야합니다
+// 매개변수 설명: data_length = 사전을 위한 배열 생성에 요구되는 원소개수(단어가 몇개인가)
+// words = 영어단어만 들어있는 string배열
+// means = 영어단어의 뜻만 들어있는 string배열
+// words와 means의 원소의 개수는 같아야 하며, 단어와 뜻이 서로 1:1 대응이 되어야 합니다.
+// 예: words = {"Windows", "macOS"}, means = {"윈도우", "맥OS"}
 EnglishDictionary::EnglishDictionary(int data_length, string words[], string means[])
 : Dictionary(data_length) {
     this->words = words;
@@ -67,7 +81,8 @@ EnglishDictionary::EnglishDictionary(int data_length, string words[], string mea
 }
 
 // word매개변수에 해당하는 값과 그 뜻을 meaning매개변수로 단어장에 추가합니다.
-// 해단 단어가 이미 등록되어 있던 경우 데이터가 추가되거나 변경되지 않으며 false를 반환합니다.
+// 해당 단어가 이미 등록되어 있던 경우 사전에 영향을 미치지 않으며 false를 반환합니다.
+// 뜻을 변경하는 경우에는 modify함수를 사용하기 바랍니다.
 bool EnglishDictionary::add(const string &word, const string &meaning) {
     if (search(word) == -1) {
         data_length++;

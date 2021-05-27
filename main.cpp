@@ -29,7 +29,7 @@ int main() {
                 cin.ignore();
                 getline(cin, input);
                 if (dictionary.search(input, result)) {
-                    cout << "\n\n검색하신 단어의 뜻은 " << result << " 입니다.\n" << endl;
+                    cout << "\n\n검색하신 단어의 뜻은 " << "\"" << result << "\"" << " 입니다.\n" << endl;
                 } else {
                     cout << "\n\n검색하신 단어를 찾을 수 없습니다.\n" << endl;
                 }
