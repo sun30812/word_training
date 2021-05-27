@@ -11,7 +11,9 @@ int main() {
     cout << "==========" << endl;
     cout << "영어 단어장" << endl;
     cout << "==========" << endl;
-    EnglishDictionary dictionary;
+    string words[] = {"settings", "passionate"};
+    string means[] = {"설정", "열정적인"};
+    EnglishDictionary dictionary(2,words, means);
     int answer = 0;
     bool isExit = false;
     while (!isExit) {
