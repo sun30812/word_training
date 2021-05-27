@@ -1,10 +1,9 @@
-﻿// 단어를 검색할 수 있는 단어장 프로그램입니다.
+﻿// 영어단어를 검색할 수 있는 영어사전 프로그램입니다.
 #include <iostream>
 #include <string>
 #include "dictionary.h"
 using namespace std;
 
-// 단어 관리 메뉴
 void wordManagement(EnglishDictionary& dictionary);
 
 int main() {
@@ -55,6 +54,7 @@ int main() {
     return 0;
 }
 
+// 사전 관리 메뉴
 void wordManagement(EnglishDictionary& dictionary) {
     int answer = 0;
     bool isExit = false;

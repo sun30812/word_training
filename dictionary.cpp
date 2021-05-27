@@ -34,7 +34,7 @@ int Dictionary::search(const string& word) {
     return -1;
 }
 
-// 단어장에 존재하는 모든 리스트를 출력합니다. 등록된 단어가 없는 경우 사전에 등록된 단어가
+// 사전에 존재하는 모든 단어와 뜻을 출력합니다. 등록된 단어가 없는 경우 사전에 등록된 단어가
 // 없다는 메세지가 출력됩니다.
 // 단, 비어있는 단어를 추가한 경우(영어사전 클래스 생성 시 배열 크기만 지정한 경우)
 // 해당 단어자리에 비어있음이 표시됩니다.
@@ -63,7 +63,7 @@ Dictionary::~Dictionary() {
 }
 // 아무 매개변수도 주지 않은 경우 빈 사전이 생성됩니다. 미리 등록하고 싶은 단어가 없으면
 // 매개변수를 아무것도 않넣으면 됩니다.
-// 빈 사전이여도 add함수를 통해 단어를 새로 등록할 수 있습니다.(add함수 사용 시 배열 크기 알아서 늘어남)
+// 단어가 없는 사전이여도 add함수를 통해 단어를 새로 등록할 수 있습니다.(add함수 사용 시 배열 크기 알아서 늘어남)
 // 매개변수 설명: data_length = 사전을 위한 배열 생성에 요구되는 원소개수(단어가 몇개인가)
 // 주의사항: data_length만 따로 지정할 수 있는 이유는 나중에 개발목적으로 테스트 할 경우
 // 를 위한 것이며 일반적인 사용의 경우에는 권장하지 않습니다.
@@ -105,7 +105,7 @@ bool EnglishDictionary::add(const string &word, const string &meaning) {
 }
 
 
-// 단어장에서 특정 단어를 지우도록 해줍니다.
+// 사전에서 특정 단어를 지우도록 해줍니다.
 // 해당 단어가 존재하지 않는 경우 false를 반환하고 아무런 작업도 수행하지 않습니다.
 // 사용법: english_dictionary -= "지울 단어"
 bool EnglishDictionary::operator-=(const string& word) {
@@ -136,7 +136,7 @@ bool EnglishDictionary::operator-=(const string& word) {
     }
 
 }
-// 단어장에서 특정 단어의 뜻을 변경합니다.
+// 사전에서 특정 단어의 뜻을 변경합니다.
 // 해당 단어가 존재하지 않는 경우 false를 반환하고 아무런 작업도 수행하지 않습니다.
 bool EnglishDictionary::modify(const string &word, const string& new_meaning) {
     if (search(word) == -1) {
