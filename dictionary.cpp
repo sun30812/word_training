@@ -36,14 +36,18 @@ int Dictionary::search(const string& word) {
 void Dictionary::printAll()
 {
     cout << "\n" << endl;
-    for (int i = 0; i < data_length; i++)
-    {
-        if (words[i] != "") {
-            cout << "[" << i + 1 << "]" << words[i] << ":" << means[i] << endl;
+    if (data_length) {
+        for (int i = 0; i < data_length; i++)
+        {
+            if (words[i] != "") {
+                cout << "[" << i + 1 << "]" << words[i] << ":" << means[i] << endl;
+            }
+            else {
+                cout << "[" << i + 1 << "]" << "비어있음" << endl;
+            }
         }
-        else {
-            cout << "[" << i + 1 << "]" << "비어있음" << endl;
-        }
+    } else {
+        cout << "사전에 등록된 단어가 없습니다." << endl;
     }
     cout << "\n" << endl;
 }
@@ -52,15 +56,14 @@ Dictionary::~Dictionary() {
     delete[] words;
     delete[] means;
 }
-
-EnglishDictionary::EnglishDictionary(int data_length) : Dictionary(data_length) {
-    // TODO: 데이터를 파일에서(fstream) 읽어오는 로직 추가 필요
-    words[0] = "test";
-    means[0] = "시험";
-    words[1] = "pizza";
-    means[1] = "피자";
-    means[4] = "xxxaaaaa";
-    words[4] = "x";
+// 아무 매개변수도 주지 않은 경우 빈 사전이 생성됩니다. 하지만 걱정하지마세요
+// 프로그램 내에 있는 메뉴를 통해 단어를 새로 등록할 수 있습니다. 매개변수로
+// 숫자만 넣으면 빈 단어가 추가된 상태로 있게됩니다. 숫자만 넣는 경우 개발용으로 사용하라 만든겁니다.
+EnglishDictionary::EnglishDictionary(int data_length) : Dictionary(data_length) {}
+EnglishDictionary::EnglishDictionary(int data_length, string words[], string means[])
+: Dictionary(data_length) {
+    this->words = words;
+    this->means = means;
 }
 
 // word매개변수에 해당하는 값과 그 뜻을 meaning매개변수로 단어장에 추가합니다.
@@ -75,7 +78,7 @@ bool EnglishDictionary::add(const string &word, const string &meaning) {
         new_words[data_length - 1] = word;
         string* new_means = new string[data_length]();
         for (int i = 0; i < data_length - 1; i++) {
-            new_words[i] = words[i];
+            new_means[i] = means[i];
         }
         new_means[data_length - 1] = meaning;
         words = new_words;

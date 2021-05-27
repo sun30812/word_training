@@ -11,7 +11,7 @@ int main() {
     cout << "==========" << endl;
     cout << "영어 단어장" << endl;
     cout << "==========" << endl;
-    EnglishDictionary dictionary(5);
+    EnglishDictionary dictionary;
     int answer = 0;
     bool isExit = false;
     while (!isExit) {
