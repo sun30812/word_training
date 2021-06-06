@@ -4,8 +4,16 @@ using namespace std;
 
 Dictionary::Dictionary(int data_length) {
     this->data_length = data_length;
+    is_dynamic = true;
     words = new string[data_length];
     means = new string[data_length];
+}
+
+Dictionary::Dictionary(int data_length, string words[], string means[]) {
+    this->data_length = data_length;
+    is_dynamic = false;
+    this->words = words;
+    this->means = means;
 }
 
 // word 매개변수에 해당하는 단어가 사전에 있으면 result변수에 뜻을 반환하고
@@ -58,8 +66,10 @@ void Dictionary::printAll()
 }
 
 Dictionary::~Dictionary() {
+	if (is_dynamic) {
     delete[] words;
     delete[] means;
+	}
 }
 // 아무 매개변수도 주지 않은 경우 빈 사전이 생성됩니다. 미리 등록하고 싶은 단어가 없으면
 // 매개변수를 아무것도 않넣으면 됩니다.
@@ -75,15 +85,13 @@ EnglishDictionary::EnglishDictionary(int data_length) : Dictionary(data_length) 
 // words와 means의 원소의 개수는 같아야 하며, 단어와 뜻이 서로 1:1 대응이 되어야 합니다.
 // 예: words = {"Windows", "macOS"}, means = {"윈도우", "맥OS"}
 EnglishDictionary::EnglishDictionary(int data_length, string words[], string means[])
-: Dictionary(data_length) {
-    this->words = words;
-    this->means = means;
-}
+: Dictionary(data_length, words, means) { }
 
 // word매개변수에 해당하는 값과 그 뜻을 meaning매개변수로 단어장에 추가합니다.
 // 해당 단어가 이미 등록되어 있던 경우 사전에 영향을 미치지 않으며 false를 반환합니다.
 // 뜻을 변경하는 경우에는 modify함수를 사용하기 바랍니다.
 bool EnglishDictionary::add(const string &word, const string &meaning) {
+	is_dynamic = true;
     if (search(word) == -1) {
         data_length++;
         string* new_words = new string[data_length]();
@@ -109,6 +117,7 @@ bool EnglishDictionary::add(const string &word, const string &meaning) {
 // 해당 단어가 존재하지 않는 경우 false를 반환하고 아무런 작업도 수행하지 않습니다.
 // 사용법: english_dictionary -= "지울 단어"
 bool EnglishDictionary::operator-=(const string& word) {
+    is_dynamic = true;
     int index = search(word);
     if (index >= 0) {
         this->words[index] = "/deleted";
@@ -139,6 +148,7 @@ bool EnglishDictionary::operator-=(const string& word) {
 // 사전에서 특정 단어의 뜻을 변경합니다.
 // 해당 단어가 존재하지 않는 경우 false를 반환하고 아무런 작업도 수행하지 않습니다.
 bool EnglishDictionary::modify(const string &word, const string& new_meaning) {
+	is_dynamic = true;
     if (search(word) == -1) {
         return false;
     } else {

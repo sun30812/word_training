@@ -9,7 +9,9 @@ protected:
     int data_length;
     string* words;
     string* means;
-    Dictionary(int data_length);
+    bool is_dynamic;
+    Dictionary(int data_length=0);
+    Dictionary(int data_length, string words[], string means[]);
     int search(const string& word);
     ~Dictionary();
 
