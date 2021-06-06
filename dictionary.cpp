@@ -1,5 +1,4 @@
 ﻿#include "dictionary.h"
-#include <iostream>
 using namespace std;
 
 Dictionary::Dictionary(int data_length) {
